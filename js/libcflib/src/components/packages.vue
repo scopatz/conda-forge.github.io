@@ -13,7 +13,7 @@
 
     <tbody>
       <!-- <tr v-for="p of packages | filterBy filterkey | orderBy sortparam order"> -->
-      <tr v-for="pkg of packages" v-bind:key=pkg.name | filterBy filterkey >
+      <tr v-for="pkg of packages" v-bind:key=pkg.name >
         <td>{{ pkg.name }}</td>
         <td>{{ pkg.name }}</td>
       </tr>
@@ -31,7 +31,7 @@ export default new Vue({
 
     data: {
         sortparam: '',
-        fitlerkey: '',
+        filterkey: '',
         order: 1,
         errors: [],
         packages: {}
