@@ -1,19 +1,19 @@
 <template>
-<div id="vuepackages" class="container">
+<div id="vuepkgs" class="container">
   <div class="row">Package Name:</div>
   <input type="text" class="form-control" v-model="filterkey">
 
   <table class="table table-hover">
     <thead>
       <tr>
-        <th><a href="#" v-on:click="sortvia('package.name')">name</a></th>
+        <th><a href="#" v-on:click="sortvia('pkg.name')">name</a></th>
         <th><a href="#">arch</a></th>
       </tr>
     </thead>
 
     <tbody>
-      <!-- <tr v-for="p of packages | filterBy filterkey | orderBy sortparam order"> -->
-      <tr v-for="pkg of packages" v-bind:key=pkg.name >
+      <!-- <tr v-for="p in packages | filterBy filterkey | orderBy sortparam order"> -->
+      <tr v-for="pkg in filteredPackages" v-bind:key="pkg.name" >
         <td>{{ pkg.name }}</td>
         <td>{{ pkg.name }}</td>
       </tr>
@@ -23,19 +23,17 @@
 </template>
 
 <script>
+//import Vue from 'vue/dist/vue.esm.browser.js';
 import axios from 'axios';
-import Vue from 'vue';
 
-export default new Vue({
-    el: '#vuepackages',
-
-    data: {
-        sortparam: '',
-        filterkey: '',
-        order: 1,
-        errors: [],
-        packages: {}
-    },
+export default {
+  data() { return {
+    sortparam: "",
+    filterkey: "",
+    order: 1,
+    errors: [],
+    packages: {}
+    }},
 
   // Fetches posts when the component is created.
   created() {
@@ -48,11 +46,13 @@ export default new Vue({
     })
   },
 
-    methods: {
-        sortvia: function (sortparam, order) {
-        this.order = order * -1;
-            this.sortparam = sortparam;
-        }
+  computed: {
+    filteredPackages() {
+      var self = this;
+      return Object.values(self.packages).filter(function(value) {
+        return value.name.indexOf(self.filterkey) > -1;
+        })
     }
-})
+  }
+}
 </script>
