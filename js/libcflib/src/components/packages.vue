@@ -6,16 +6,17 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th><a href="#" v-on:click="sortvia('pkg.name')">name</a></th>
-        <th><a href="#">arch</a></th>
+        <th>names</th>
+        <th>channels</th>
+        <th>archs</th>
       </tr>
     </thead>
 
     <tbody>
-      <!-- <tr v-for="p in packages | filterBy filterkey | orderBy sortparam order"> -->
-      <tr v-for="pkg in filteredPackages" v-bind:key="pkg.name" >
+      <tr v-for="pkg in filteredPackages" v-bind:key="pkg.name + '5a10b298'">
         <td>{{ pkg.name }}</td>
-        <td>{{ pkg.name }}</td>
+        <td>{{ Object.keys(pkg.artifacts).join(', ') }}</td>
+        <td>{{ pkg.channel }}</td>
       </tr>
     </tbody>
   </table>
@@ -23,7 +24,6 @@
 </template>
 
 <script>
-//import Vue from 'vue/dist/vue.esm.browser.js';
 import axios from 'axios';
 
 export default {
